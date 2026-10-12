@@ -1201,26 +1201,24 @@ function autoFitToPageBudget(targetPages) {
   const paper = document.getElementById('cv-paper');
   if (!paper) return;
 
-  const a4PageHeightPx = 1122.5;
-  const targetMaxHeight = a4PageHeightPx * targetPages;
-
-  let currentPadding = 16;
-  let currentFontSize = 13.5;
-  let currentLineHeight = 1.45;
-
-  for (let i = 0; i < 8; i++) {
-    if (paper.scrollHeight <= targetMaxHeight) break;
-    currentPadding = Math.max(8, currentPadding - 1);
-    currentFontSize = Math.max(11, currentFontSize - 0.3);
-    currentLineHeight = Math.max(1.22, currentLineHeight - 0.03);
-
-    paper.style.padding = `${currentPadding}mm 14mm`;
-    paper.style.fontSize = `${currentFontSize}px`;
-    paper.style.lineHeight = `${currentLineHeight}`;
+  if (targetPages === 1) {
+    paper.style.padding = '10mm 14mm';
+    paper.style.fontSize = '12px';
+    paper.style.lineHeight = '1.32';
+    paper.querySelectorAll('.cv-item').forEach(el => el.style.marginBottom = '6px');
+    paper.querySelectorAll('.section-title').forEach(el => el.style.margin = '8px 0 4px 0');
+    paper.querySelectorAll('.cv-bullets li').forEach(el => el.style.marginBottom = '1.5px');
+  } else {
+    // 2 Pages
+    paper.style.padding = '16mm 18mm';
+    paper.style.fontSize = '13.4px';
+    paper.style.lineHeight = '1.45';
+    paper.querySelectorAll('.cv-item').forEach(el => el.style.marginBottom = '10px');
+    paper.querySelectorAll('.section-title').forEach(el => el.style.margin = '14px 0 8px 0');
+    paper.querySelectorAll('.cv-bullets li').forEach(el => el.style.marginBottom = '3px');
   }
 
   updatePageBreakGuides();
-  alert(`✨ Auto-Fit complete: Scaled document to fit within ${targetPages} Page(s)!`);
 }
 
 // ============================================================
