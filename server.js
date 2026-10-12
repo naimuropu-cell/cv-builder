@@ -20,12 +20,54 @@ const MIME_TYPES = {
   '.ico': 'image/x-icon'
 };
 
+let generateDocxBuffer;
+try {
+  generateDocxBuffer = require('./docx_exporter').generateDocxBuffer;
+} catch (e) {
+  console.warn('Docx exporter could not be loaded:', e.message);
+}
+
 const server = http.createServer((req, res) => {
   // CORS & Cache Headers for Dev
   res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
 
+  if (req.method === 'OPTIONS') {
+    res.writeHead(204);
+    res.end();
+    return;
+  }
+
   let reqPath = decodeURI(req.url.split('?')[0]);
+
+  // Handle Dynamic Word DOCX Export
+  if (req.method === 'POST' && reqPath === '/api/export-docx') {
+    let body = '';
+    req.on('data', chunk => { body += chunk; });
+    req.on('end', async () => {
+      try {
+        if (!generateDocxBuffer) throw new Error('DOCX engine not available');
+        const state = JSON.parse(body);
+        const buffer = await generateDocxBuffer(state);
+        const fileName = `${(state.name || 'Resume').replace(/\s+/g, '_')}_Resume.docx`;
+
+        res.writeHead(200, {
+          'Content-Type': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+          'Content-Disposition': `attachment; filename="${fileName}"`,
+          'Content-Length': buffer.length
+        });
+        res.end(buffer);
+      } catch (err) {
+        console.error('Docx export error:', err);
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: err.message }));
+      }
+    });
+    return;
+  }
+
   if (reqPath === '/' || reqPath === '') {
     reqPath = '/builder.html';
   }

@@ -22,26 +22,35 @@
     </div>
 
     <div class="nav-actions">
-      <!-- Preset Profile Selector -->
+      <!-- Autosave Status Badge -->
+      <span id="autosave-status" class="autosave-badge" title="Automatically saved locally in your browser">
+        ● Saved Locally
+      </span>
+
+      <!-- Multi-Resume Profile Manager -->
       <div class="preset-select-wrap">
-        <span>👤 Profile Preset:</span>
-        <select id="preset-selector" class="preset-select">
-          <option value="naimur" selected>Md. Naimur Rahman Apu (SQA Engineer)</option>
-          <option value="juel">Juel Rana (HVAC & Electrical)</option>
-          <option value="blank">Empty Template (Start Blank)</option>
+        <span>👤 Profile:</span>
+        <select id="preset-selector" class="preset-select" title="Active CV Profile">
+          <!-- Populated dynamically via JS -->
         </select>
+        <button id="btn-new-profile" class="btn-icon-xs" title="Create a new blank profile">➕ New</button>
+        <button id="btn-clone-profile" class="btn-icon-xs" title="Duplicate active profile">📋 Clone</button>
+        <button id="btn-del-profile" class="btn-icon-xs" title="Delete active custom profile">🗑️</button>
       </div>
 
       <!-- JSON Import/Export Actions -->
       <input type="file" id="import-json-input" accept=".json" style="display:none;">
       <button class="btn btn-dark" id="btn-import-json" title="Load CV from JSON file">
-        📥 Import JSON
+        📥 Import
       </button>
       <button class="btn btn-dark" id="btn-export-json" title="Download CV data as JSON backup">
         💾 Export JSON
       </button>
 
-      <!-- Print / PDF Action -->
+      <!-- Word (.docx) & PDF Export Actions -->
+      <button class="btn btn-dark" id="btn-export-docx" title="Export editable Microsoft Word document (.docx)">
+        📝 Export Word (.docx)
+      </button>
       <button class="btn btn-accent" id="btn-export-pdf" title="Export pixel-perfect PDF via browser print">
         📄 Export PDF
       </button>
@@ -221,6 +230,18 @@
 
         <!-- TAB 6: PROJECTS REPEATER -->
         <div class="tab-pane" id="tab-projects">
+          <!-- GitHub Auto-Sync Box -->
+          <div class="form-section-card">
+            <div class="card-title">
+              <span>🐙 Sync Projects from GitHub</span>
+            </div>
+            <div class="github-sync-box">
+              <input type="text" id="gh-username" class="form-input" style="flex:1;" placeholder="GitHub Username" value="naimuropu-cell">
+              <button class="btn btn-dark" id="btn-fetch-gh" style="font-size:11.5px; padding:6px 10px;">Fetch Repos</button>
+            </div>
+            <div id="gh-repo-results" class="repo-pill-list" style="display:none;"></div>
+          </div>
+
           <div class="form-section-card">
             <div class="card-title">
               <span>Featured QA & Engineering Projects</span>
@@ -259,6 +280,35 @@
               <!-- Dynamically calculated via JS -->
             </ul>
           </div>
+
+          <!-- Target Job Description (JD) Keyword Matcher -->
+          <div class="jd-scanner-card">
+            <div class="card-title">
+              <span>🎯 Job Description (JD) Gap Analysis</span>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Paste Target Job Description (LinkedIn, Upwork, Indeed)</label>
+              <textarea id="jd-input" class="form-textarea" style="min-height:90px;" placeholder="Paste job requirements here to scan for matching skills and missing keywords..."></textarea>
+            </div>
+            <button class="btn btn-primary" id="btn-scan-jd" style="width:100%; margin-bottom:12px;">
+              🔍 Scan & Analyze Match
+            </button>
+            
+            <div id="jd-results-box" style="display:none;">
+              <div class="jd-match-meter">
+                <span style="font-size:12px; color:var(--app-text-muted); font-weight:600;">Job Alignment:</span>
+                <span class="jd-match-score" id="jd-score-num">0%</span>
+              </div>
+              <div style="margin-bottom:10px;">
+                <label class="form-label" style="color:#34d399;">✓ Matching Keywords in your CV:</label>
+                <div class="keyword-cluster" id="jd-matched-tags"></div>
+              </div>
+              <div>
+                <label class="form-label" style="color:#fbbf24;">⚠️ Missing Keywords (Click ＋ to Add):</label>
+                <div class="keyword-cluster" id="jd-missing-tags"></div>
+              </div>
+            </div>
+          </div>
         </div>
 
       </div>
@@ -267,12 +317,19 @@
     <!-- RIGHT LIVE PREVIEW CANVAS -->
     <main class="studio-preview">
       
-      <!-- Floating Canvas Zoom Bar -->
+      <!-- Floating Canvas Zoom & Page Budget Bar -->
       <div class="preview-toolbar">
         <button class="btn btn-dark" id="btn-zoom-out" style="padding:4px 9px;">−</button>
         <span class="zoom-indicator" id="zoom-val">100%</span>
         <button class="btn btn-dark" id="btn-zoom-in" style="padding:4px 9px;">＋</button>
         <button class="btn btn-dark" id="btn-zoom-reset" style="padding:4px 9px; font-size:11px;">Reset</button>
+
+        <span style="border-left:1px solid #334155; height:18px; margin:0 4px;"></span>
+
+        <span class="page-budget-indicator" id="page-budget-indicator">📄 2 Pages</span>
+        <button class="btn-autofit" id="btn-autofit-1" title="Scale and adjust spacing to fit exactly 1 page">📐 Fit 1-Page</button>
+        <button class="btn-autofit" id="btn-autofit-2" title="Scale and adjust spacing to fit cleanly across 2 pages">📐 Fit 2-Pages</button>
+        <button class="btn btn-dark" id="btn-toggle-guides" style="font-size:11px; padding:4px 8px;">Guides: ON</button>
       </div>
 
       <!-- Real-time A4 Paper Canvas -->

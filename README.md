@@ -13,6 +13,11 @@
 ## 🌟 Key Highlights
 
 - **⚡ Split-Screen Reactive Studio:** Live two-way binding updates the right-hand A4 sheet instantaneously on every keystroke.
+- **💾 LocalStorage Autosave & Multi-Profile Manager:** Never lose changes; create, clone, rename, and manage multiple targeted resume versions directly in your browser.
+- **📝 Native Microsoft Word (.docx) & PDF Export:** 1-click export to official editable Word `.docx` documents (with clickable links and clean styles) alongside border-accurate A4 PDF export.
+- **📐 Visual Page-Break Guide & Auto-Fit Engine:** Real-time dashed A4 boundary guides and smart "Fit 1-Page" / "Fit 2-Pages" buttons that scale spacing dynamically to prevent awkward spilling.
+- **🎯 Target Job Description (JD) Gap Analysis:** Paste any job posting (from LinkedIn, Upwork, Indeed) to scan for keyword matches, compute alignment %, and add missing skills with 1 click.
+- **🐙 GitHub Project Auto-Fetcher:** Pull public repositories, star counts, descriptions, and language tags directly from the GitHub API into your Featured Projects.
 - **🎯 3 Interchangeable Architectures:**
   - **ATS Tech Minimalist (Default):** Single-column, keyword-dense, link-enabled layout engineered for automated applicant tracking systems (ideal for Software QA, Developers, and Tech).
   - **Modern Timeline:** Vertical accent rail with circular photo avatar and two-tone headers.
@@ -20,8 +25,6 @@
 - **📊 Real-Time ATS Optimization Meter (0–100%):** Automatically audits candidate info, summary length, quantified metrics in job bullets, skill categories, and proof-of-work links with actionable advice.
 - **🔁 Dynamic Field Repeaters:** Add, edit, or remove work experience, featured projects, skill groups, and education records dynamically.
 - **🎨 Visual Design Customizer:** 7 curated color palettes, Google Fonts switcher (`Inter`, `Outfit`, `Roboto`, `Times New Roman`), photo upload, and canvas zoom controls (70% to 130%).
-- **💾 JSON State Management:** 1-click **Export JSON** to backup your resume state and **Import JSON** to load or switch profiles instantly.
-- **📄 Pixel-Perfect PDF Generation:** Dedicated print stylesheets hide editor controls and produce border-accurate A4 documents directly via the browser print dialog.
 - **👤 Preloaded Profiles:**
   - **Md. Naimur Rahman Apu** — Software Quality Assurance (SQA) Engineer
   - **Juel Rana** — Refrigeration & Electrical Systems Technician

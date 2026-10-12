@@ -165,7 +165,18 @@ const PRESET_JUEL = {
   languages: "English: B2 (Professional Working) | Bengali: C2 (Native) | Hindi: B1 (Conversational)"
 };
 
-// Global App State
+// ============================================================
+// Multi-Profile Storage & Autosave Engine
+// ============================================================
+const STORAGE_PROFILES_KEY = 'novacv_profiles_v3';
+const STORAGE_ACTIVE_ID_KEY = 'novacv_active_id_v3';
+
+let profileStore = {
+  activeId: 'naimur_default',
+  profiles: {}
+};
+
+// Global Active State
 let cvState = JSON.parse(JSON.stringify(PRESET_NAIMUR));
 let appConfig = {
   template: 'ats',          // 'ats' | 'timeline' | 'executive'
@@ -175,10 +186,111 @@ let appConfig = {
   zoom: 100
 };
 
+let autoSaveTimer = null;
+
+function initProfileStore() {
+  try {
+    const saved = localStorage.getItem(STORAGE_PROFILES_KEY);
+    const savedActive = localStorage.getItem(STORAGE_ACTIVE_ID_KEY);
+    if (saved) {
+      profileStore = JSON.parse(saved);
+      if (savedActive && profileStore.profiles[savedActive]) {
+        profileStore.activeId = savedActive;
+      }
+    }
+  } catch (e) {
+    console.warn('LocalStorage error:', e);
+  }
+
+  // Ensure default presets always exist in repository
+  if (!profileStore.profiles['naimur_default']) {
+    profileStore.profiles['naimur_default'] = {
+      id: 'naimur_default',
+      name: 'Md. Naimur Rahman Apu (SQA Engineer)',
+      data: JSON.parse(JSON.stringify(PRESET_NAIMUR)),
+      config: { template: 'ats', color: '#1e3a8a', font: 'Inter', zoom: 100 },
+      isPreset: true
+    };
+  }
+  if (!profileStore.profiles['juel_default']) {
+    profileStore.profiles['juel_default'] = {
+      id: 'juel_default',
+      name: 'Juel Rana (HVAC & Electrical)',
+      data: JSON.parse(JSON.stringify(PRESET_JUEL)),
+      config: { template: 'timeline', color: '#ED7D31', font: 'Inter', zoom: 100 },
+      isPreset: true
+    };
+  }
+
+  if (!profileStore.activeId || !profileStore.profiles[profileStore.activeId]) {
+    profileStore.activeId = 'naimur_default';
+  }
+
+  loadActiveProfileState();
+  renderProfileSelector();
+}
+
+function loadActiveProfileState() {
+  const current = profileStore.profiles[profileStore.activeId];
+  if (current) {
+    cvState = JSON.parse(JSON.stringify(current.data));
+    appConfig = Object.assign({ template: 'ats', color: '#1e3a8a', font: 'Inter', zoom: 100 }, current.config);
+  }
+}
+
+function triggerAutoSave() {
+  const badge = document.getElementById('autosave-status');
+  if (badge) {
+    badge.className = 'autosave-badge saving';
+    badge.textContent = '● Saving...';
+  }
+
+  clearTimeout(autoSaveTimer);
+  autoSaveTimer = setTimeout(() => {
+    try {
+      const active = profileStore.profiles[profileStore.activeId];
+      if (active) {
+        active.data = JSON.parse(JSON.stringify(cvState));
+        active.config = JSON.parse(JSON.stringify(appConfig));
+      }
+      localStorage.setItem(STORAGE_PROFILES_KEY, JSON.stringify(profileStore));
+      localStorage.setItem(STORAGE_ACTIVE_ID_KEY, profileStore.activeId);
+
+      if (badge) {
+        badge.className = 'autosave-badge';
+        const now = new Date();
+        const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        badge.textContent = `● Saved Locally (${timeStr})`;
+      }
+    } catch (e) {
+      console.warn('AutoSave error', e);
+      if (badge) {
+        badge.className = 'autosave-badge saving';
+        badge.textContent = '⚠️ Save Failed';
+      }
+    }
+  }, 350);
+}
+
+function renderProfileSelector() {
+  const select = document.getElementById('preset-selector');
+  if (!select) return;
+  select.innerHTML = '';
+
+  Object.values(profileStore.profiles).forEach(p => {
+    const opt = document.createElement('option');
+    opt.value = p.id;
+    opt.textContent = p.name;
+    if (p.id === profileStore.activeId) opt.selected = true;
+    select.appendChild(opt);
+  });
+}
+
 // ============================================================
 // Initialization & Event Binding
 // ============================================================
 document.addEventListener('DOMContentLoaded', () => {
+  initProfileStore();
   setupTabs();
   setupConfigControls();
   populateFormFields();
@@ -203,26 +315,109 @@ function setupTabs() {
   });
 }
 
-// Config Controls (Templates, Colors, Fonts)
+// Config Controls (Templates, Colors, Fonts, Profiles)
 function setupConfigControls() {
-  // Preset Switcher
+  // Preset / Profile Switcher
   const presetSelect = document.getElementById('preset-selector');
-  presetSelect.addEventListener('change', (e) => {
-    if (e.target.value === 'naimur') {
-      cvState = JSON.parse(JSON.stringify(PRESET_NAIMUR));
-      appConfig.template = 'ats';
-      appConfig.color = '#1e3a8a';
-    } else if (e.target.value === 'juel') {
-      cvState = JSON.parse(JSON.stringify(PRESET_JUEL));
-      appConfig.template = 'timeline';
-      appConfig.color = '#ED7D31';
-    } else {
-      resetBlankState();
+  presetSelect?.addEventListener('change', (e) => {
+    const chosenId = e.target.value;
+    if (profileStore.profiles[chosenId]) {
+      profileStore.activeId = chosenId;
+      loadActiveProfileState();
+      updateConfigUI();
+      populateFormFields();
+      renderPreview();
+      calculateAtsScore();
+      triggerAutoSave();
     }
+  });
+
+  // Create New Blank Profile
+  document.getElementById('btn-new-profile')?.addEventListener('click', () => {
+    const profileName = prompt("Enter name for the new resume profile:", "My Custom Resume");
+    if (!profileName || !profileName.trim()) return;
+
+    const newId = 'profile_' + Date.now();
+    const blankData = {
+      name: "Your Name",
+      title: "Target Designation",
+      location: "City, Country",
+      phone: "+880 123456789",
+      email: "email@example.com",
+      portfolio: "",
+      github: "",
+      linkedin: "",
+      photo: "",
+      summary: "Write a high-impact summary describing your core background, key technical strengths, and what you bring to the team.",
+      skills: [{ category: "Core Competencies", items: "Skill 1, Skill 2, Skill 3" }],
+      experience: [{ role: "Role Title", company: "Company • Location", dates: "2025 – Present", tags: [], bullets: ["Accomplished [X] as measured by [Y] by doing [Z]."] }],
+      projects: [],
+      education: [{ degree: "B.Sc. in Computer Science", institution: "University Name", date: "Year", details: "CGPA / Details" }],
+      languages: "English: Professional Working Proficiency"
+    };
+
+    profileStore.profiles[newId] = {
+      id: newId,
+      name: profileName.trim(),
+      data: blankData,
+      config: { template: 'ats', color: '#1e3a8a', font: 'Inter', zoom: 100 },
+      isPreset: false
+    };
+    profileStore.activeId = newId;
+
+    renderProfileSelector();
+    loadActiveProfileState();
     updateConfigUI();
     populateFormFields();
     renderPreview();
     calculateAtsScore();
+    triggerAutoSave();
+  });
+
+  // Duplicate Current Profile
+  document.getElementById('btn-clone-profile')?.addEventListener('click', () => {
+    const current = profileStore.profiles[profileStore.activeId];
+    if (!current) return;
+
+    const cloneName = prompt("Enter name for duplicated profile:", `${current.name} (Copy)`);
+    if (!cloneName || !cloneName.trim()) return;
+
+    const newId = 'profile_' + Date.now();
+    profileStore.profiles[newId] = {
+      id: newId,
+      name: cloneName.trim(),
+      data: JSON.parse(JSON.stringify(cvState)),
+      config: JSON.parse(JSON.stringify(appConfig)),
+      isPreset: false
+    };
+    profileStore.activeId = newId;
+
+    renderProfileSelector();
+    triggerAutoSave();
+    alert(`Duplicated profile as: "${cloneName.trim()}"`);
+  });
+
+  // Delete Custom Profile
+  document.getElementById('btn-del-profile')?.addEventListener('click', () => {
+    const current = profileStore.profiles[profileStore.activeId];
+    if (!current) return;
+
+    if (current.isPreset) {
+      alert("System preset profiles cannot be deleted. You can create or clone new profiles instead.");
+      return;
+    }
+
+    if (confirm(`Are you sure you want to delete profile "${current.name}"?`)) {
+      delete profileStore.profiles[profileStore.activeId];
+      profileStore.activeId = 'naimur_default';
+      renderProfileSelector();
+      loadActiveProfileState();
+      updateConfigUI();
+      populateFormFields();
+      renderPreview();
+      calculateAtsScore();
+      triggerAutoSave();
+    }
   });
 
   // Template Cards
@@ -232,6 +427,7 @@ function setupConfigControls() {
       card.classList.add('active');
       appConfig.template = card.dataset.template;
       renderPreview();
+      triggerAutoSave();
     });
   });
 
@@ -243,6 +439,7 @@ function setupConfigControls() {
       appConfig.color = swatch.dataset.color;
       document.documentElement.style.setProperty('--cv-primary', appConfig.color);
       renderPreview();
+      triggerAutoSave();
     });
   });
 
@@ -252,6 +449,7 @@ function setupConfigControls() {
     fontSelect.addEventListener('change', (e) => {
       appConfig.font = e.target.value;
       renderPreview();
+      triggerAutoSave();
     });
   }
 
@@ -600,6 +798,10 @@ function renderPreview() {
   } else {
     paper.innerHTML = renderAtsTemplate();
   }
+
+  if (typeof updatePageBreakGuides === 'function') {
+    updatePageBreakGuides();
+  }
 }
 
 // 1. ATS TECH TEMPLATE
@@ -945,6 +1147,288 @@ function resetBlankState() {
 }
 
 // ============================================================
+// Page Break Guides & Auto-Fit Engine
+// ============================================================
+let showPageGuides = true;
+
+function updatePageBreakGuides() {
+  const paper = document.getElementById('cv-paper');
+  if (!paper) return;
+
+  // Remove existing guide lines
+  paper.querySelectorAll('.page-break-line').forEach(el => el.remove());
+
+  // 1 A4 page height at 96 DPI: 297mm ≈ 1122.5px
+  const a4PageHeightPx = 1122.5;
+  const paperHeight = paper.scrollHeight;
+  const pagesCount = (paperHeight / a4PageHeightPx).toFixed(1);
+
+  // Update badge
+  const budgetBadge = document.getElementById('page-budget-indicator');
+  if (budgetBadge) {
+    if (pagesCount <= 1.05) {
+      budgetBadge.textContent = `📄 1 Page (${pagesCount})`;
+      budgetBadge.style.color = '#34d399';
+    } else if (pagesCount <= 2.05) {
+      budgetBadge.textContent = `📄 2 Pages (${pagesCount})`;
+      budgetBadge.style.color = '#60a5fa';
+    } else {
+      budgetBadge.textContent = `⚠️ ${pagesCount} Pages (Exceeds 2)`;
+      budgetBadge.style.color = '#fbbf24';
+    }
+  }
+
+  if (!showPageGuides) return;
+
+  // Add Page 1 Boundary Guide
+  const page1Line = document.createElement('div');
+  page1Line.className = 'page-break-line';
+  page1Line.style.top = `${a4PageHeightPx}px`;
+  page1Line.innerHTML = `<span class="page-break-label">Page 1 End (297mm)</span>`;
+  paper.appendChild(page1Line);
+
+  // Add Page 2 Boundary Guide if height exceeds 1.15 pages
+  if (paperHeight > a4PageHeightPx * 1.15) {
+    const page2Line = document.createElement('div');
+    page2Line.className = 'page-break-line';
+    page2Line.style.top = `${a4PageHeightPx * 2}px`;
+    page2Line.innerHTML = `<span class="page-break-label">Page 2 End (594mm)</span>`;
+    paper.appendChild(page2Line);
+  }
+}
+
+function autoFitToPageBudget(targetPages) {
+  const paper = document.getElementById('cv-paper');
+  if (!paper) return;
+
+  const a4PageHeightPx = 1122.5;
+  const targetMaxHeight = a4PageHeightPx * targetPages;
+
+  let currentPadding = 16;
+  let currentFontSize = 13.5;
+  let currentLineHeight = 1.45;
+
+  for (let i = 0; i < 8; i++) {
+    if (paper.scrollHeight <= targetMaxHeight) break;
+    currentPadding = Math.max(8, currentPadding - 1);
+    currentFontSize = Math.max(11, currentFontSize - 0.3);
+    currentLineHeight = Math.max(1.22, currentLineHeight - 0.03);
+
+    paper.style.padding = `${currentPadding}mm 14mm`;
+    paper.style.fontSize = `${currentFontSize}px`;
+    paper.style.lineHeight = `${currentLineHeight}`;
+  }
+
+  updatePageBreakGuides();
+  alert(`✨ Auto-Fit complete: Scaled document to fit within ${targetPages} Page(s)!`);
+}
+
+// ============================================================
+// Direct Word DOCX Generation
+// ============================================================
+async function exportToWordDocx() {
+  const btn = document.getElementById('btn-export-docx');
+  const originalText = btn ? btn.textContent : 'Export Word';
+  if (btn) btn.textContent = '⏳ Generating DOCX...';
+
+  try {
+    const res = await fetch('/api/export-docx', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(cvState)
+    });
+
+    if (res.ok) {
+      const blob = await res.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${(cvState.name || 'Resume').replace(/\s+/g, '_')}_Resume.docx`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      window.URL.revokeObjectURL(url);
+    } else {
+      throw new Error(`Server returned status ${res.status}`);
+    }
+  } catch (err) {
+    console.warn('Server DOCX export unavailable, falling back to client Word format', err);
+    // Client-side Word Document Fallback
+    const content = `
+      <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+      <head><meta charset='utf-8'><title>${cvState.name} Resume</title>
+      <style>
+        body { font-family: Calibri, sans-serif; font-size: 11pt; line-height: 1.4; color: #1f2937; margin: 0.5in; }
+        h1 { font-size: 18pt; color: #1e3a8a; text-transform: uppercase; margin-bottom: 2pt; text-align: center; }
+        h2 { font-size: 11pt; color: #4b5563; text-align: center; margin-bottom: 6pt; text-transform: uppercase; }
+        .contact { font-size: 10pt; text-align: center; color: #4b5563; margin-bottom: 12pt; }
+        .sec-title { font-size: 11pt; font-weight: bold; color: #1e3a8a; border-bottom: 1.5pt solid #1e3a8a; text-transform: uppercase; margin-top: 10pt; margin-bottom: 4pt; }
+        ul { margin-top: 2pt; margin-bottom: 4pt; }
+      </style>
+      </head>
+      <body>
+        ${document.getElementById('cv-paper').innerHTML}
+      </body>
+      </html>
+    `;
+    const blob = new Blob(['\ufeff', content], { type: 'application/msword' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${(cvState.name || 'Resume').replace(/\s+/g, '_')}_Resume.doc`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+  } finally {
+    if (btn) btn.textContent = originalText;
+  }
+}
+
+// ============================================================
+// GitHub Project Auto-Fetcher
+// ============================================================
+function setupGitHubSync() {
+  document.getElementById('btn-fetch-gh')?.addEventListener('click', async () => {
+    const input = document.getElementById('gh-username');
+    const container = document.getElementById('gh-repo-results');
+    const username = (input?.value || '').trim();
+    if (!username || !container) return;
+
+    container.style.display = 'block';
+    container.innerHTML = '<div style="color:#94a3b8; font-size:11.5px;">⏳ Fetching public repos from GitHub...</div>';
+
+    try {
+      const res = await fetch(`https://api.github.com/users/${encodeURIComponent(username)}/repos?sort=updated&per_page=12`);
+      if (!res.ok) throw new Error('Could not fetch repos. Check username or rate limit.');
+      const repos = await res.json();
+
+      if (!repos || !repos.length) {
+        container.innerHTML = '<div style="color:#fbbf24; font-size:11.5px;">No public repositories found.</div>';
+        return;
+      }
+
+      container.innerHTML = '';
+      repos.forEach(repo => {
+        const pill = document.createElement('div');
+        pill.className = 'repo-pill';
+        pill.innerHTML = `
+          <div>
+            <strong style="color:#60a5fa;">${repo.name}</strong>
+            ${repo.language ? `<span style="font-size:10px; color:#94a3b8; margin-left:6px;">(${repo.language})</span>` : ''}
+            <div style="font-size:10.5px; color:#cbd5e1; margin-top:2px;">${repo.description || 'Public GitHub project'}</div>
+          </div>
+          <button class="btn btn-primary" style="font-size:10px; padding:3px 7px;">＋ Add</button>
+        `;
+
+        pill.querySelector('button').onclick = () => {
+          cvState.projects.push({
+            name: repo.name.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()),
+            url: repo.html_url,
+            date: new Date(repo.updated_at).getFullYear().toString(),
+            tags: [repo.language || 'Code', `${repo.stargazers_count} ★`, 'GitHub'],
+            bullets: [repo.description || `Engineered and maintained ${repo.name} repository.`]
+          });
+          renderProjectsRepeater();
+          renderPreview();
+          calculateAtsScore();
+          triggerAutoSave();
+          alert(`Added "${repo.name}" to your Featured Projects!`);
+        };
+
+        container.appendChild(pill);
+      });
+    } catch (err) {
+      container.innerHTML = `<div style="color:#ef4444; font-size:11px;">⚠️ Error: ${err.message}</div>`;
+    }
+  });
+}
+
+// ============================================================
+// Target Job Description (JD) Gap Analysis
+// ============================================================
+function setupJobDescriptionScanner() {
+  document.getElementById('btn-scan-jd')?.addEventListener('click', () => {
+    const jdText = (document.getElementById('jd-input')?.value || '').trim();
+    const resultsBox = document.getElementById('jd-results-box');
+    const scoreNum = document.getElementById('jd-score-num');
+    const matchedBox = document.getElementById('jd-matched-tags');
+    const missingBox = document.getElementById('jd-missing-tags');
+
+    if (!jdText || !resultsBox) {
+      alert('Please paste a job description first.');
+      return;
+    }
+
+    const KEYWORD_CATALOG = [
+      "Playwright", "Selenium", "Postman", "Cypress", "JMeter", "Jira", "Manual Testing",
+      "Regression Testing", "Functional Testing", "Smoke Testing", "Sanity Testing",
+      "Exploratory Testing", "UAT", "API Testing", "REST API", "Database Testing",
+      "SQL", "MySQL", "MongoDB", "CI/CD", "GitHub Actions", "Git", "STLC", "SDLC",
+      "Agile", "Scrum", "Test Plans", "Test Cases", "RTM", "Performance Testing",
+      "Load Testing", "Cross-Browser Testing", "Chrome DevTools", "TypeScript",
+      "JavaScript", "Python", "Java", "Docker", "Newman", "Appium", "Cucumber",
+      "BDD", "TDD", "Automation Framework"
+    ];
+
+    const jdLower = jdText.toLowerCase();
+    const cvText = JSON.stringify(cvState).toLowerCase();
+
+    const targetKeywords = KEYWORD_CATALOG.filter(kw => jdLower.includes(kw.toLowerCase()));
+    if (!targetKeywords.length) {
+      alert('No known QA or tech keywords detected in the pasted text. Try pasting a full job description.');
+      return;
+    }
+
+    const matched = [];
+    const missing = [];
+
+    targetKeywords.forEach(kw => {
+      if (cvText.includes(kw.toLowerCase())) {
+        matched.push(kw);
+      } else {
+        missing.push(kw);
+      }
+    });
+
+    const matchScore = Math.round((matched.length / targetKeywords.length) * 100);
+    scoreNum.textContent = `${matchScore}%`;
+    scoreNum.style.color = matchScore >= 75 ? '#34d399' : matchScore >= 50 ? '#fbbf24' : '#ef4444';
+
+    matchedBox.innerHTML = matched.length 
+      ? matched.map(kw => `<span class="kw-badge kw-matched">✓ ${kw}</span>`).join('') 
+      : '<span style="font-size:11px; color:#94a3b8;">None matched yet</span>';
+
+    missingBox.innerHTML = missing.length 
+      ? missing.map(kw => `
+          <span class="kw-badge kw-missing">
+            ${kw} <button class="kw-add-btn" data-kw="${kw}" title="Add to Skills">＋ Add</button>
+          </span>
+        `).join('')
+      : '<span style="font-size:11px; color:#34d399;">All identified job keywords present in your CV! 🎉</span>';
+
+    // Click to add missing keyword to skills
+    missingBox.querySelectorAll('.kw-add-btn').forEach(btn => {
+      btn.onclick = () => {
+        const kw = btn.dataset.kw;
+        if (!cvState.skills || !cvState.skills.length) {
+          cvState.skills = [{ category: "Key Competencies", items: kw }];
+        } else {
+          cvState.skills[0].items += `, ${kw}`;
+        }
+        renderSkillsRepeater();
+        renderPreview();
+        calculateAtsScore();
+        triggerAutoSave();
+        btn.parentElement.remove();
+        alert(`Added "${kw}" to your Skills section!`);
+      };
+    });
+
+    resultsBox.style.display = 'block';
+  });
+}
+
+// ============================================================
 // Export & Actions
 // ============================================================
 function setupActionButtons() {
@@ -953,12 +1437,17 @@ function setupActionButtons() {
     window.print();
   });
 
+  // Export DOCX
+  document.getElementById('btn-export-docx')?.addEventListener('click', () => {
+    exportToWordDocx();
+  });
+
   // Export JSON
   document.getElementById('btn-export-json')?.addEventListener('click', () => {
     const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(cvState, null, 2));
     const dlAnchor = document.createElement('a');
     dlAnchor.setAttribute("href", dataStr);
-    dlAnchor.setAttribute("download", `${cvState.name.replace(/\s+/g, '_')}_CV_Data.json`);
+    dlAnchor.setAttribute("download", `${(cvState.name || 'Resume').replace(/\s+/g, '_')}_CV_Data.json`);
     dlAnchor.click();
   });
 
@@ -978,6 +1467,7 @@ function setupActionButtons() {
           populateFormFields();
           renderPreview();
           calculateAtsScore();
+          triggerAutoSave();
           alert('Successfully imported CV data!');
         } catch (err) {
           alert('Invalid JSON file format.');
@@ -1000,8 +1490,26 @@ function setupActionButtons() {
       reader.onload = (evt) => {
         cvState.photo = evt.target.result;
         renderPreview();
+        triggerAutoSave();
       };
       reader.readAsDataURL(file);
     }
   });
+
+  // Page Budget & Auto-Fit Buttons
+  document.getElementById('btn-autofit-1')?.addEventListener('click', () => {
+    autoFitToPageBudget(1);
+  });
+  document.getElementById('btn-autofit-2')?.addEventListener('click', () => {
+    autoFitToPageBudget(2);
+  });
+  document.getElementById('btn-toggle-guides')?.addEventListener('click', (e) => {
+    showPageGuides = !showPageGuides;
+    e.target.textContent = showPageGuides ? 'Guides: ON' : 'Guides: OFF';
+    updatePageBreakGuides();
+  });
+
+  // GitHub & JD Scanner Handlers
+  setupGitHubSync();
+  setupJobDescriptionScanner();
 }
