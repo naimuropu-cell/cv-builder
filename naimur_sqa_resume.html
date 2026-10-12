@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Md. Naimur Rahman Apu - Software Quality Assurance (SQA) Engineer | Resume</title>
+  <meta name="description" content="Resume of Md. Naimur Rahman Apu, Software QA Engineer specializing in manual testing, API testing, Playwright automation, STLC, Jira, and cross-functional developer collaboration.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #1e3a8a;          /* Deep Tech Navy */
+      --primary-hover: #172554;
+      --primary-light: #eff6ff;
+      --link: #2563eb;             /* Clean Royal Blue for interactive links */
+      --dark: #0f172a;             /* Slate 900 for sharp ATS text */
+      --text: #1e293b;             /* Slate 800 */
+      --muted: #475569;            /* Slate 600 */
+      --border: #cbd5e1;           /* Slate 300 */
+      --bg-page: #f8fafc;
+      --tag-bg: #f1f5f9;
+      --tag-border: #e2e8f0;
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font);
+      color: var(--text);
+      background: #edf2f7;
+      line-height: 1.48;
+      font-size: 13.5px;
+      padding: 24px 15px 40px 15px;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    /* Top Control Toolbar (Hidden in Print) */
+    .toolbar-container {
+      max-width: 860px;
+      margin: 0 auto 20px auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      background: #ffffff;
+      padding: 12px 18px;
+      border-radius: 8px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+      border: 1px solid var(--border);
+    }
+
+    .toolbar-title {
+      font-weight: 700;
+      color: var(--dark);
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .badge {
+      background: var(--primary-light);
+      color: var(--primary);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 4px;
+      border: 1px solid rgba(30, 58, 138, 0.2);
+    }
+
+    .toolbar-actions {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: 1px solid transparent;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #ffffff;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-hover);
+    }
+
+    .btn-outline {
+      background: #ffffff;
+      color: var(--dark);
+      border-color: var(--border);
+    }
+
+    .btn-outline:hover {
+      background: #f8fafc;
+    }
+
+    /* Main Resume Sheet */
+    .resume-sheet {
+      max-width: 860px;
+      margin: 0 auto;
+      background: #ffffff;
+      padding: 42px 50px;
+      border-radius: 4px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      position: relative;
+    }
+
+    /* Header Section */
+    .header-section {
+      text-align: center;
+      padding-bottom: 14px;
+      margin-bottom: 14px;
+      border-bottom: 2px solid var(--primary);
+    }
+
+    .candidate-name {
+      font-size: 27px;
+      font-weight: 800;
+      color: var(--primary);
+      letter-spacing: 0.5px;
+      margin-bottom: 3px;
+    }
+
+    .candidate-title {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 8px;
+    }
+
+    .contact-line {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 8px 16px;
+      font-size: 12.8px;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .contact-line a {
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .contact-line a:hover {
+      color: var(--primary);
+      text-decoration: underline;
+    }
+
+    .heading-links {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 8px 16px;
+      font-size: 13px;
+    }
+
+    .heading-links a {
+      color: var(--link);
+      text-decoration: none;
+      font-weight: 600;
+      padding: 1px 4px;
+      border-radius: 3px;
+      transition: background 0.15s ease;
+    }
+
+    .heading-links a:hover {
+      text-decoration: underline;
+      background: var(--primary-light);
+    }
+
+    /* Section Styling */
+    .resume-section {
+      margin-bottom: 14px;
+    }
+
+    .section-title {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      border-bottom: 1.5px solid var(--primary);
+      padding-bottom: 2px;
+      margin-bottom: 8px;
+    }
+
+    /* Content & Bullets */
+    .summary-text {
+      font-size: 12.8px;
+      line-height: 1.5;
+      text-align: justify;
+      color: var(--text);
+    }
+
+    .skill-category {
+      margin-bottom: 4.5px;
+      font-size: 12.6px;
+      line-height: 1.45;
+    }
+
+    .skill-category strong {
+      color: var(--dark);
+    }
+
+    /* Experience & Projects Items */
+    .item-block {
+      margin-bottom: 11px;
+    }
+
+    .item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-bottom: 1px;
+    }
+
+    .item-role {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--dark);
+    }
+
+    .item-company-line {
+      font-size: 12.5px;
+      font-weight: 500;
+      color: var(--muted);
+      font-style: italic;
+      margin-bottom: 3px;
+    }
+
+    .item-date {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--muted);
+    }
+
+    /* Clickable Project Title */
+    .project-title-link {
+      font-weight: 700;
+      font-size: 13.5px;
+      color: var(--primary);
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+
+    .project-title-link:hover {
+      color: var(--link);
+      text-decoration: underline;
+    }
+
+    .item-meta-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 3px 5px;
+      margin: 3px 0 5px 0;
+    }
+
+    .tag-badge {
+      font-size: 10.5px;
+      font-weight: 600;
+      background: var(--tag-bg);
+      color: #334155;
+      padding: 1px 6px;
+      border-radius: 4px;
+      border: 1px solid var(--tag-border);
+    }
+
+    ul.bullet-list {
+      list-style-type: disc;
+      margin-left: 18px;
+    }
+
+    ul.bullet-list li {
+      margin-bottom: 3px;
+      font-size: 12.6px;
+      line-height: 1.42;
+      color: var(--text);
+    }
+
+    ul.bullet-list li strong {
+      color: var(--dark);
+    }
+
+    /* Content Editable Mode */
+    [contenteditable="true"] {
+      outline: 2px dashed rgba(30, 58, 138, 0.4);
+      background-color: rgba(239, 246, 255, 0.5);
+      padding: 2px 4px;
+      border-radius: 3px;
+    }
+
+    /* PRINT STYLES - Strict 2-Page A4 Optimization */
+    @media print {
+      @page {
+        size: A4 portrait;
+        margin: 9mm 12mm 9mm 12mm;
+      }
+
+      body {
+        background: #ffffff !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        font-size: 9.4pt !important;
+        color: #0f172a !important;
+        line-height: 1.35 !important;
+      }
+
+      .toolbar-container {
+        display: none !important;
+      }
+
+      .resume-sheet {
+        max-width: 100% !important;
+        padding: 0 !important;
+        box-shadow: none !important;
+        border: none !important;
+      }
+
+      .header-section {
+        padding-bottom: 8px !important;
+        margin-bottom: 8px !important;
+      }
+
+      .candidate-name {
+        font-size: 20pt !important;
+      }
+
+      .candidate-title {
+        font-size: 9.5pt !important;
+        margin-bottom: 3px !important;
+      }
+
+      .contact-line, .heading-links {
+        font-size: 8.4pt !important;
+        gap: 2px 8px !important;
+      }
+
+      .resume-section {
+        margin-bottom: 8px !important;
+        page-break-inside: avoid;
+        break-inside: avoid;
+      }
+
+      .section-title {
+        font-size: 9.8pt !important;
+        margin-bottom: 4px !important;
+        padding-bottom: 1.5px !important;
+      }
+
+      .item-role {
+        font-size: 9.8pt !important;
+      }
+
+      .item-company-line {
+        font-size: 8.8pt !important;
+        margin-bottom: 2px !important;
+      }
+
+      ul.bullet-list li {
+        font-size: 8.6pt !important;
+        margin-bottom: 2px !important;
+        line-height: 1.32 !important;
+      }
+
+      .skill-category {
+        font-size: 8.6pt !important;
+        margin-bottom: 2.5px !important;
+      }
+
+      .item-block {
+        margin-bottom: 7px !important;
+        page-break-inside: avoid;
+        break-inside: avoid;
+      }
+
+      .tag-badge {
+        font-size: 7.8pt !important;
+        padding: 1px 4px !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Action Toolbar (Hidden when printed to PDF) -->
+  <header class="toolbar-container" id="toolbar-container">
+    <div class="toolbar-title">
+      <span>SQA Engineer Resume</span>
+      <span class="badge">ATS-Optimized</span>
+    </div>
+    <div class="toolbar-actions">
+      <button type="button" class="btn btn-outline" id="btn-toggle-edit" title="Click to edit text directly on screen">
+        ✏️ Edit Resume
+      </button>
+      <a href="Md_Naimur_Rahman_Apu_SQA_Resume.docx" download="Md_Naimur_Rahman_Apu_SQA_Resume.docx" class="btn btn-outline" title="Download Word DOCX version">
+        📥 Word (.docx)
+      </a>
+      <button type="button" class="btn btn-primary" id="btn-print" title="Export as pixel-perfect PDF">
+        🖨️ Print / Save as PDF
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Resume Content -->
+  <main class="resume-sheet" id="resume-content">
+
+    <!-- Header Section with Clean Clickable Links -->
+    <header class="header-section">
+      <h1 class="candidate-name" id="name-field">Md. Naimur Rahman Apu</h1>
+      <div class="candidate-title" id="title-field">Software Quality Assurance (SQA) Engineer</div>
+      
+      <!-- Contact Line -->
+      <div class="contact-line">
+        <span>Dhaka, Bangladesh</span>
+        <span>•</span>
+        <span><a href="tel:+8801955345331">+8801955345331</a></span>
+        <span>•</span>
+        <span><a href="mailto:naimuropu@gmail.com">naimuropu@gmail.com</a></span>
+      </div>
+
+      <!-- Clean Clickable Links (Portfolio • GitHub • LinkedIn) -->
+      <div class="heading-links">
+        <a href="https://naimuropu-cell.github.io/" target="_blank" rel="noopener">Portfolio</a>
+        <span>•</span>
+        <a href="https://github.com/naimuropu-cell" target="_blank" rel="noopener">GitHub</a>
+        <span>•</span>
+        <a href="https://www.linkedin.com/in/naimur-rahman-apu/" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </header>
+
+    <!-- 1. PROFESSIONAL SUMMARY -->
+    <section class="resume-section" id="section-summary">
+      <h2 class="section-title">Professional Summary</h2>
+      <p class="summary-text">
+        Detail-oriented and proactive <strong>Software QA Engineer</strong> with hands-on experience in <strong>Manual Testing</strong>, <strong>API Testing (Postman)</strong>, and automation testing with a focus on <strong>Playwright</strong> and <strong>Selenium WebDriver</strong>. Proven track record across enterprise and SaaS applications: designing <strong>3,000+ comprehensive test cases</strong>, executing functional, regression, UAT, and cross-browser suites, and filing <strong>220+ detailed bug reports in Jira</strong> throughout the STLC. Leverages hands-on frontend development knowledge in <strong>JavaScript, React.js, and Vue.js</strong> to collaborate closely with developers, troubleshoot complex UI/state defects, and accelerate root-cause analysis for stable software releases.
+      </p>
+    </section>
+
+    <!-- 2. TECHNICAL SKILLS -->
+    <section class="resume-section" id="section-skills">
+      <h2 class="section-title">Technical Skills</h2>
+      <div class="skill-category">
+        <strong>QA & Testing Methodologies:</strong> Manual Testing, Functional, Regression, Smoke, Sanity, Exploratory Testing, UI/UX Testing, Cross-Browser Testing, User Acceptance Testing (UAT), Test Case Design, STLC, SDLC, Agile / Scrum.
+      </div>
+      <div class="skill-category">
+        <strong>Automation & QA Tools:</strong> Playwright, Selenium WebDriver, Postman (REST API Testing & Automated Collections), JMeter (Performance & Load Testing), Chrome DevTools, Jira (Defect Tracking).
+      </div>
+      <div class="skill-category">
+        <strong>Version Control & CI/CD:</strong> Git, GitHub, GitHub Actions (CI/CD workflows), VS Code, Markdown.
+      </div>
+      <div class="skill-category">
+        <strong>Databases & Backend Testing:</strong> SQL, MySQL, MongoDB, Database Testing, Query Validation, JSON Schema Verification.
+      </div>
+      <div class="skill-category">
+        <strong>Frontend & Development:</strong> JavaScript (ES6+), TypeScript, React.js, Vue.js, HTML5, CSS3, Tailwind CSS, Quasar Framework.
+      </div>
+    </section>
+
+    <!-- 3. PROFESSIONAL WORK EXPERIENCE (2-Line Hierarchy) -->
+    <section class="resume-section" id="section-experience">
+      <h2 class="section-title">Professional Experience</h2>
+
+      <!-- Experience 1: LastTouch -->
+      <div class="item-block">
+        <div class="item-header">
+          <div class="item-role">Software Test Engineer</div>
+          <span class="item-date">February 2026 – June 2026</span>
+        </div>
+        <div class="item-company-line">LastTouch • Contractual (Remote)</div>
+        <div class="item-meta-tags">
+          <span class="tag-badge">Manual QA</span>
+          <span class="tag-badge">Playwright</span>
+          <span class="tag-badge">Selenium WebDriver</span>
+          <span class="tag-badge">Postman</span>
+          <span class="tag-badge">UAT</span>
+          <span class="tag-badge">Jira</span>
+          <span class="tag-badge">STLC</span>
+        </div>
+        <ul class="bullet-list">
+          <li><strong>Functional & Manual QA:</strong> Conducted end-to-end manual, exploratory, and User Acceptance Testing (UAT) across client-facing web applications to guarantee product stability and UX fidelity.</li>
+          <li><strong>Automation Testing:</strong> Developed foundational automated regression test scripts using <strong>Playwright</strong> and <strong>Selenium WebDriver</strong> to accelerate sprint release verification.</li>
+          <li><strong>API Testing:</strong> Validated REST APIs using Postman, verifying endpoint schemas, status codes, query payloads, auth headers, and response payloads.</li>
+          <li><strong>Defect Tracking & Developer Collaboration:</strong> Documented and tracked critical defects in Jira with reproducible steps, expected/actual results, and network logs; collaborated daily with developers during STLC cycles to verify and close bug fixes.</li>
+        </ul>
+      </div>
+
+      <!-- Experience 2: Iching Lab -->
+      <div class="item-block">
+        <div class="item-header">
+          <div class="item-role">Junior Software QA Engineer & Frontend Developer Intern</div>
+          <span class="item-date">October 2025 – February 2026</span>
+        </div>
+        <div class="item-company-line">Iching Lab • Internship (Dhaka, Bangladesh)</div>
+        <div class="item-meta-tags">
+          <span class="tag-badge">Functional Testing</span>
+          <span class="tag-badge">UI/Regression Testing</span>
+          <span class="tag-badge">React.js</span>
+          <span class="tag-badge">Vue.js</span>
+          <span class="tag-badge">Agile</span>
+        </div>
+        <ul class="bullet-list">
+          <li><strong>QA Execution:</strong> Executed manual, functional, UI, and regression test suites for dynamic web applications in an Agile environment.</li>
+          <li><strong>Cross-Functional Collaboration:</strong> Partnered directly with developers to reproduce tricky UI defects, inspect DOM states using Chrome DevTools, and verify patches.</li>
+          <li><strong>Frontend Development:</strong> Built responsive frontend components using React.js and Vue.js, gaining deep understanding of state management and component rendering.</li>
+          <li><strong>Bug Reporting:</strong> Reported and verified 30+ bug fixes, maintaining clear test documentation across sprints.</li>
+        </ul>
+      </div>
+
+      <!-- Experience 3: Nation IT Limited -->
+      <div class="item-block">
+        <div class="item-header">
+          <div class="item-role">Data Entry & Lead Generation Executive</div>
+          <span class="item-date">2024 – October 2025</span>
+        </div>
+        <div class="item-company-line">Nation IT Limited • Remote</div>
+        <ul class="bullet-list">
+          <li>Conducted systematic web research, CRM record maintenance, and quality assurance, consistently maintaining 99%+ accuracy within strict deadlines.</li>
+        </ul>
+      </div>
+
+    </section>
+
+    <!-- 4. FEATURED QA PROJECTS (Directly Clickable Project Names) -->
+    <section class="resume-section" id="section-projects">
+      <h2 class="section-title">Featured QA Projects</h2>
+
+      <!-- Project 1: BizPOS Pro (Clickable Title) -->
+      <div class="item-block">
+        <div class="item-header">
+          <a href="https://github.com/naimuropu-cell/bizpos-qa-audit-framework" target="_blank" rel="noopener" class="project-title-link">BizPOS Pro – QA Audit & Automation Framework ↗</a>
+          <span class="item-date">2026</span>
+        </div>
+        <div class="item-meta-tags">
+          <span class="tag-badge">1,100+ Test Cases</span>
+          <span class="tag-badge">120+ Bug Reports</span>
+          <span class="tag-badge">Playwright</span>
+          <span class="tag-badge">TypeScript</span>
+          <span class="tag-badge">RTM</span>
+          <span class="tag-badge">GitHub Actions CI/CD</span>
+        </div>
+        <ul class="bullet-list">
+          <li><strong>Scope & Architecture:</strong> Spearheaded an end-to-end QA audit covering POS, inventory, accounting, cash flow, asset depreciation, and e-commerce workflows.</li>
+          <li><strong>Test Coverage & Metrics:</strong> Designed <strong>1,100+ test cases</strong> linked via a Requirements Traceability Matrix (RTM) and documented <strong>120+ defect reports</strong> with video/log evidence.</li>
+          <li><strong>Playwright Automation:</strong> Constructed an automated regression framework using <strong>Playwright & TypeScript</strong>, validating critical business paths and integrating with GitHub Actions CI/CD.</li>
+        </ul>
+      </div>
+
+      <!-- Project 2: School Management System (Clickable Title) -->
+      <div class="item-block">
+        <div class="item-header">
+          <a href="https://github.com/naimuropu-cell/School-Management-System-QA" target="_blank" rel="noopener" class="project-title-link">School Management System Testing ↗</a>
+          <span class="item-date">2026</span>
+        </div>
+        <div class="item-meta-tags">
+          <span class="tag-badge">2,000+ Test Cases</span>
+          <span class="tag-badge">100+ Bug Reports</span>
+          <span class="tag-badge">Playwright</span>
+          <span class="tag-badge">Selenium</span>
+          <span class="tag-badge">SQL Database Testing</span>
+          <span class="tag-badge">Postman</span>
+        </div>
+        <ul class="bullet-list">
+          <li><strong>Core Modules:</strong> Executed comprehensive testing across student enrollment, attendance, gradebook, financial billing, and role-based permissions.</li>
+          <li><strong>Test Execution:</strong> Designed and executed <strong>2,000+ manual test cases</strong> and logged <strong>100+ actionable bug reports</strong> with severity/priority categorization.</li>
+          <li><strong>Automation & DB Testing:</strong> Automated authentication and smoke workflows using <strong>Playwright</strong> and <strong>Selenium WebDriver</strong>; performed backend SQL database testing and Postman API validation.</li>
+        </ul>
+      </div>
+
+      <!-- Project 3: PulseLoad -->
+      <div class="item-block">
+        <div class="item-header">
+          <div class="item-role">PulseLoad – Web Performance Testing Platform</div>
+          <span class="item-date">2025 – 2026</span>
+        </div>
+        <div class="item-company-line">React • TypeScript • FastAPI • JMeter • Postman</div>
+        <div class="item-meta-tags">
+          <span class="tag-badge">JMeter</span>
+          <span class="tag-badge">Postman</span>
+          <span class="tag-badge">React</span>
+          <span class="tag-badge">TypeScript</span>
+          <span class="tag-badge">FastAPI</span>
+        </div>
+        <ul class="bullet-list">
+          <li>Conducted functional, API, load, stress, and spike testing using <strong>JMeter</strong> and <strong>Postman</strong> to evaluate latency, throughput, and concurrent user thresholds.</li>
+          <li>Validated analytics dashboards and verified API response integrity across authentication and reporting services.</li>
+        </ul>
+      </div>
+
+      <!-- Project 4: DemoQA Portfolio -->
+      <div class="item-block">
+        <div class="item-header">
+          <div class="item-role">QA Testing Portfolio (DemoQA & SauceDemo)</div>
+          <span class="item-date">2025</span>
+        </div>
+        <ul class="bullet-list">
+          <li>Designed and executed <strong>50+ manual test cases</strong> and logged <strong>20+ detailed bug reports</strong> covering complex UI interactions, alerts, and checkout workflows.</li>
+        </ul>
+      </div>
+
+    </section>
+
+    <!-- 5. EDUCATION -->
+    <section class="resume-section" id="section-education">
+      <h2 class="section-title">Education</h2>
+      
+      <div class="item-block">
+        <div class="item-header">
+          <div class="item-role">B.Sc. in Computer Science & Engineering</div>
+          <span class="item-date">2022 – 2026</span>
+        </div>
+        <div class="item-company-line">Green University of Bangladesh (Dhaka, Bangladesh)</div>
+        <div style="font-size: 12.3px; color: var(--muted); margin-top: 2px;">
+          CGPA: <strong>3.16 / 4.00</strong>  •  Relevant Coursework: Software Engineering, Database Management Systems, Object-Oriented Programming, Web Technologies, Algorithms.
+        </div>
+      </div>
+
+      <div class="item-block">
+        <div class="item-header">
+          <div class="item-role">Higher Secondary Certificate (HSC)</div>
+          <span class="item-date">2018 – 2020</span>
+        </div>
+        <div class="item-company-line">Milestone College Uttara (Dhaka, Bangladesh)</div>
+        <div style="font-size: 12.3px; color: var(--muted); margin-top: 2px;">
+          Result: <strong>GPA 5.00 / 5.00 (Golden A+)</strong>  •  Group: Science
+        </div>
+      </div>
+
+    </section>
+
+    <!-- 6. LANGUAGES -->
+    <section class="resume-section" id="section-languages">
+      <h2 class="section-title">Languages</h2>
+      <div class="skill-category">
+        <strong>Bangla:</strong> Native  |  <strong>English:</strong> Professional Working Proficiency (Technical Documentation, Bug Reporting & Team Collaboration)
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    // Print to PDF
+    document.getElementById('btn-print').addEventListener('click', function() {
+      window.print();
+    });
+
+    // Toggle Content Editable for Live On-Screen Edits
+    const btnEdit = document.getElementById('btn-toggle-edit');
+    let isEditing = false;
+    btnEdit.addEventListener('click', function() {
+      isEditing = !isEditing;
+      const sheet = document.getElementById('resume-content');
+      sheet.contentEditable = isEditing ? 'true' : 'false';
+      if (isEditing) {
+        btnEdit.innerHTML = '💾 Finish Editing';
+        btnEdit.classList.add('btn-primary');
+        btnEdit.classList.remove('btn-outline');
+      } else {
+        btnEdit.innerHTML = '✏️ Edit Resume';
+        btnEdit.classList.remove('btn-primary');
+        btnEdit.classList.add('btn-outline');
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resume Of JUEL RANA - Format 2 (Classic Executive)</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Times New Roman', Times, serif;
+      color: #000000;
+      background: #eef1f5;
+      line-height: 1.45;
+      font-size: 14.5px;
+      padding: 24px 15px 40px 15px;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    /* Top Toolbar (Hidden when printed) */
+    .toolbar-container {
+      max-width: 860px;
+      margin: 0 auto 20px auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      background: #ffffff;
+      padding: 12px 18px;
+      border-radius: 8px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+      border: 1px solid #e2e8f0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    .toolbar-title {
+      font-weight: 700;
+      color: #1e293b;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .badge-f2 {
+      background: #eff6ff;
+      color: #2563eb;
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 4px;
+      border: 1px solid #bfdbfe;
+      font-weight: 700;
+    }
+
+    .toolbar-actions {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: 1px solid transparent;
+      text-decoration: none;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    .btn-primary {
+      background: #1e293b;
+      color: #ffffff;
+    }
+
+    .btn-primary:hover {
+      background: #0f172a;
+    }
+
+    .btn-outline {
+      background: #ffffff;
+      color: #334155;
+      border-color: #cbd5e1;
+    }
+
+    .btn-outline:hover {
+      background: #f8fafc;
+    }
+
+    /* CV Page Container */
+    .cv-document {
+      max-width: 860px;
+      margin: 0 auto;
+      background: #ffffff;
+      padding: 48px 56px;
+      border-radius: 2px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+      position: relative;
+    }
+
+    /* Header Section matching Image 1 */
+    .header-table {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 24px;
+      border-bottom: 1px solid #e5e7eb;
+      padding-bottom: 18px;
+    }
+
+    .header-left {
+      flex: 1;
+    }
+
+    .resume-of {
+      font-size: 15px;
+      font-weight: bold;
+      text-decoration: underline;
+      margin-bottom: 4px;
+    }
+
+    .candidate-name {
+      font-size: 26px;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+
+    .candidate-title {
+      font-size: 14.5px;
+      font-weight: bold;
+      color: #333333;
+      margin-bottom: 8px;
+    }
+
+    .contact-details {
+      font-size: 13.5px;
+      line-height: 1.45;
+    }
+
+    .contact-row {
+      display: flex;
+      margin-bottom: 2px;
+    }
+
+    .contact-label {
+      width: 85px;
+      font-weight: bold;
+    }
+
+    .contact-val {
+      flex: 1;
+    }
+
+    .contact-val a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: 20px;
+      flex-shrink: 0;
+    }
+
+    .passport-photo {
+      width: 110px;
+      height: 145px;
+      object-fit: cover;
+      border: 1px solid #777777;
+      display: block;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    /* Section Titles matching template */
+    .section-title-center {
+      text-align: center;
+      font-size: 15px;
+      font-weight: bold;
+      text-decoration: underline;
+      text-transform: uppercase;
+      margin: 20px 0 10px 0;
+      letter-spacing: 0.5px;
+    }
+
+    .section-title-left {
+      font-size: 14px;
+      font-weight: bold;
+      text-decoration: underline;
+      margin: 12px 0 6px 0;
+    }
+
+    .section-content {
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .text-justify {
+      text-align: justify;
+    }
+
+    /* Bullets */
+    ul.cv-bullets {
+      margin-left: 24px;
+      margin-bottom: 8px;
+    }
+
+    ul.cv-bullets li {
+      margin-bottom: 4px;
+      line-height: 1.45;
+    }
+
+    /* Key-Value Tabular Lists (Colons aligned) */
+    .key-value-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      margin-bottom: 8px;
+    }
+
+    .kv-row {
+      display: flex;
+      align-items: baseline;
+    }
+
+    .kv-key {
+      width: 220px;
+      font-weight: bold;
+      flex-shrink: 0;
+    }
+
+    .kv-colon {
+      width: 16px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .kv-val {
+      flex: 1;
+    }
+
+    /* Scholastic Records Block */
+    .scholastic-item {
+      margin-bottom: 12px;
+    }
+
+    /* Two-Column References Grid */
+    .references-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 10px;
+      margin-bottom: 14px;
+    }
+
+    .ref-card {
+      font-size: 13.5px;
+      line-height: 1.45;
+    }
+
+    .ref-name {
+      font-weight: bold;
+      font-size: 14px;
+      margin-bottom: 2px;
+    }
+
+    /* Declaration */
+    .declaration-text {
+      text-align: justify;
+      line-height: 1.55;
+      margin-bottom: 16px;
+    }
+
+    .sign-off-block {
+      margin-top: 14px;
+    }
+
+    .sign-off-name {
+      font-weight: bold;
+      font-size: 15px;
+    }
+
+    .sign-off-date {
+      color: #333333;
+      font-size: 13.5px;
+    }
+
+    /* Content Editable styling */
+    [contenteditable="true"] {
+      outline: 2px dashed #94a3b8;
+      background-color: #f8fafc;
+      padding: 2px 4px;
+    }
+
+    /* PRINT STYLES */
+    @media print {
+      @page {
+        size: A4 portrait;
+        margin: 12mm 14mm 12mm 14mm;
+      }
+
+      body {
+        background: #ffffff !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        font-size: 10.2pt !important;
+      }
+
+      .toolbar-container {
+        display: none !important;
+      }
+
+      .cv-document {
+        max-width: 100% !important;
+        padding: 0 !important;
+        box-shadow: none !important;
+        border: none !important;
+      }
+
+      .section-block {
+        page-break-inside: avoid;
+        break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Toolbar -->
+  <header class="toolbar-container" id="toolbar-container">
+    <div class="toolbar-title">
+      <span>Classic Executive Resume Format</span>
+      <span class="badge-f2">Format 2 (Juel Rana CV 2)</span>
+    </div>
+    <div class="toolbar-actions">
+      <a href="index.html" class="btn btn-outline" title="Switch back to Timeline CV">
+        🔄 Switch to Format 1 (Timeline)
+      </a>
+      <button type="button" class="btn btn-outline" id="btn-toggle-edit" title="Click to edit directly on screen">
+        ✏️ Edit Text
+      </button>
+      <a href="JUEL_RANA_CV_2.docx" download="JUEL_RANA_CV_2.docx" class="btn btn-outline" title="Download Word DOCX version">
+        📥 Word (.docx)
+      </a>
+      <button type="button" class="btn btn-primary" id="btn-print" title="Print or save as PDF">
+        🖨️ Print / Save as PDF
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Document -->
+  <main class="cv-document" id="cv-content">
+
+    <!-- Header Section matching Image 1 with Photo in Top Right -->
+    <header class="header-table">
+      <div class="header-left">
+        <div class="resume-of">Resume Of</div>
+        <h1 class="candidate-name">JUEL RANA</h1>
+        <div class="candidate-title">Refrigeration & Electrical Systems Technician</div>
+        
+        <div class="contact-details">
+          <div class="contact-row">
+            <span class="contact-label">Address</span>
+            <span class="contact-val">: Kastoshagra, Post Office: Amdala-1850, Upazila: Shibalaya, District: Manikgonj, Bangladesh</span>
+          </div>
+          <div class="contact-row">
+            <span class="contact-label">Mobile</span>
+            <span class="contact-val">: <a href="tel:+8801680844360">+880 1680844360</a> (Phone & WhatsApp)</span>
+          </div>
+          <div class="contact-row">
+            <span class="contact-label">e-mail</span>
+            <span class="contact-val">: <a href="mailto:juelranabd64@gmail.com">juelranabd64@gmail.com</a></span>
+          </div>
+          <div class="contact-row">
+            <span class="contact-label">Licence</span>
+            <span class="contact-val">: Category B & A (Valid Bangladesh Licence — Ready for Cyprus Conversion)</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="header-right">
+        <img src="juel_passport_rect.jpg" alt="Juel Rana Passport Photo" class="passport-photo">
+      </div>
+    </header>
+
+    <!-- 1. CAREER ASPIRATION -->
+    <section class="section-block">
+      <h2 class="section-title-center">Career Aspiration</h2>
+      <div class="section-content text-justify">
+        Dedicated, energetic, and technically proficient <strong>Refrigeration & Electrical Systems Technician</strong> with over <strong>8 years of hands-on experience (2017 – Present)</strong> in installation, preventive maintenance, troubleshooting, and repair of commercial catering equipment, kitchen machinery, and commercial refrigeration systems. Proven technical capability across commercial ovens, deep fryers, cooking ranges, commercial refrigerators, reach-in freezers, walk-in cold rooms, automated ice makers, industrial dishwashers, and espresso coffee machines. Holds a 4-year Diploma in Electrical Engineering and intensive industrial automation training (PLC, VFD, HMI). Prepared to accept challenging responsibilities in a dynamic international organization, demonstrate high capability, commitment, and dedication, and fully ready for immediate relocation and deployment to Cyprus.
+      </div>
+    </section>
+
+    <!-- 2. MAJOR SKILLS & CORE COMPETENCIES -->
+    <section class="section-block">
+      <h2 class="section-title-center">Major Skills & Core Technical Competencies</h2>
+      <div class="section-content">
+        <ul class="cv-bullets">
+          <li><strong>Commercial Catering Equipment:</strong> Installation, preventive maintenance, and advanced diagnostics of commercial convection ovens, deck ovens, rotary ovens, cooking ranges, heavy-duty deep fryers, flat-top grills, salamanders, and warming cabinets.</li>
+          <li><strong>Refrigeration & HVAC Systems:</strong> Expert in commercial display refrigerators, reach-in freezers, walk-in cold rooms, and automated ice machines. Proficient in refrigerant leak detection, vacuum testing, nitrogen pressure testing, gas charging (R134a, R404a, R410a), and hermetic/semi-hermetic compressor replacements.</li>
+          <li><strong>Beverage & Sanitation Equipment:</strong> Servicing, descaling, and pump maintenance for commercial espresso/coffee machines, high-capacity dishwashers (conveyor and under-counter), water filtration systems, and booster heaters.</li>
+          <li><strong>Electrical & Control Systems:</strong> 3-phase and single-phase electrical wiring, motor control centers (MCC), relay logic, PLC, VFD, HMI systems, digital thermostats, heating elements, and reading complex electrical schematics.</li>
+          <li><strong>Computer & IT Skills:</strong> Microsoft Windows (XP, 7, 8, 10, 11), MS Office (Word, Excel), Technical Documentation & Service Logs.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 3. PROFESSIONAL WORK EXPERIENCE -->
+    <section class="section-block">
+      <h2 class="section-title-center">Professional Work Experience</h2>
+      <div class="section-content">
+        <div class="key-value-grid">
+          <div class="kv-row">
+            <span class="kv-key">Position</span>
+            <span class="kv-colon">:</span>
+            <span class="kv-val"><strong>Lead Field Technician – Refrigeration & Electrical Systems</strong></span>
+          </div>
+          <div class="kv-row">
+            <span class="kv-key">Organization</span>
+            <span class="kv-colon">:</span>
+            <span class="kv-val">Independent / Contract Engineering Services</span>
+          </div>
+          <div class="kv-row">
+            <span class="kv-key">Location</span>
+            <span class="kv-colon">:</span>
+            <span class="kv-val">Manikgonj & Dhaka, Bangladesh</span>
+          </div>
+          <div class="kv-row">
+            <span class="kv-key">Duration</span>
+            <span class="kv-colon">:</span>
+            <span class="kv-val"><strong>January 2017 – Present (8+ Years)</strong></span>
+          </div>
+        </div>
+
+        <ul class="cv-bullets">
+          <li>Spearhead on-site installation, commissioning, preventive maintenance, and emergency breakdown repairs of commercial catering, kitchen, and refrigeration systems across high-volume restaurants, bakeries, cafes, and food processing plants.</li>
+          <li>Perform comprehensive mechanical and electrical diagnostics on heavy-duty commercial kitchen equipment: convection ovens, deck/rotary ovens, industrial fryers, griddles, grills, and salamanders.</li>
+          <li>Execute complete overhauls of commercial cooling units: walk-in chillers, cold storage rooms, reach-in freezers, and automated ice-making machines.</li>
+          <li>Conduct precise refrigerant recovery, system flushing, nitrogen pressure testing, vacuuming, and gas charging; systematically replace faulty compressors, condenser fan motors, filter driers, and expansion valves.</li>
+          <li>Diagnose and repair commercial dishwashing systems, including conveyor and under-counter models, handling solenoid valves, rinse pumps, heating elements, and automated chemical dosing dispensers.</li>
+          <li>Inspect and service commercial coffee brewing systems and espresso machines, troubleshooting water pressure irregularities, solenoid valves, heating elements, and scale buildup.</li>
+          <li>Wire and troubleshoot control circuits, contactors, overload relays, digital temperature controllers, timers, and safety sensors to ensure strict operational compliance.</li>
+          <li>Manage direct client communication on-site, estimate spare part requirements, advise kitchen management on equipment care, and maintain meticulous service logs.</li>
+          <li>Utilize service vehicle daily for rapid dispatch to client locations across the region.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 4. INDUSTRIAL ATTACHMENT & SPECIALIZED TRAINING -->
+    <section class="section-block">
+      <h2 class="section-title-center">Industrial Attachment & Specialized Training</h2>
+      <div class="section-content">
+        <div class="key-value-grid">
+          <div class="kv-row">
+            <span class="kv-key">Training Position</span>
+            <span class="kv-colon">:</span>
+            <span class="kv-val"><strong>Industrial Automation & Electrical Controls Trainee</strong></span>
+          </div>
+          <div class="kv-row">
+            <span class="kv-key">Company Name</span>
+            <span class="kv-colon">:</span>
+            <span class="kv-val">SiliTek Bangladesh, Gazipur</span>
+          </div>
+          <div class="kv-row">
+            <span class="kv-key">Department</span>
+            <span class="kv-colon">:</span>
+            <span class="kv-val">Electrical & Industrial Automation</span>
+          </div>
+          <div class="kv-row">
+            <span class="kv-key">Area of Experience</span>
+            <span class="kv-colon">:</span>
+            <span class="kv-val">12-Week Intensive Practical Training (August 2016 – November 2016)</span>
+          </div>
+        </div>
+
+        <ul class="cv-bullets">
+          <li>Completed intensive practical training focused on Industrial Automation systems, Relay Logic, Programmable Logic Controllers (PLC), Variable Frequency Drives (VFD), and Human Machine Interface (HMI).</li>
+          <li>Assembled, wired, and tested industrial control panels, motor control centers (MCC), and automated sequence wiring setups.</li>
+          <li>Successfully completed comprehensive final practical project and technical viva, earning an "Excellent" grade.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 5. SCHOLASTIC RECORDS -->
+    <section class="section-block">
+      <h2 class="section-title-center">Scholastic Records</h2>
+      <div class="section-content">
+        
+        <div class="scholastic-item">
+          <div class="section-title-left">1. Diploma in Engineering Certificate:</div>
+          <div class="key-value-grid">
+            <div class="kv-row">
+              <span class="kv-key">Achievement</span>
+              <span class="kv-colon">:</span>
+              <span class="kv-val">Diploma in Engineering Certificate</span>
+            </div>
+            <div class="kv-row">
+              <span class="kv-key">Institute</span>
+              <span class="kv-colon">:</span>
+              <span class="kv-val">New Ideal Polytechnic Institute, Manikganj</span>
+            </div>
+            <div class="kv-row">
+              <span class="kv-key">Board</span>
+              <span class="kv-colon">:</span>
+              <span class="kv-val">Bangladesh Technical Education Board (BTEB)</span>
+            </div>
+            <div class="kv-row">
+              <span class="kv-key">Group / Technology</span>
+              <span class="kv-colon">:</span>
+              <span class="kv-val">Electrical Technology</span>
+            </div>
+            <div class="kv-row">
+              <span class="kv-key">Result</span>
+              <span class="kv-colon">:</span>
+              <span class="kv-val">CGPA 3.19 (out of 4.00) | Final Semester GPA: 4.00 / 4.00 (A+)</span>
+            </div>
+            <div class="kv-row">
+              <span class="kv-key">Passing Year</span>
+              <span class="kv-colon">:</span>
+              <span class="kv-val">2017 (Session: 2012–2013)</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="scholastic-item">
+          <div class="section-title-left">2. Secondary School Certificate (SSC):</div>
+          <div class="key-value-grid">
+            <div class="kv-row">
+              <span class="kv-key">Achievement</span>
+              <span class="kv-colon">:</span>
+              <span class="kv-val">Secondary School Certificate (Vocational)</span>
+            </div>
+            <div class="kv-row">
+              <span class="kv-key">Institute</span>
+              <span class="kv-colon">:</span>
+              <span class="kv-val">Rupsha Wahed Ali High School, Manikganj</span>
+            </div>
+            <div class="kv-row">
+              <span class="kv-key">Board</span>
+              <span class="kv-colon">:</span>
+              <span class="kv-val">Bangladesh Technical Education Board (BTEB)</span>
+            </div>
+            <div class="kv-row">
+              <span class="kv-key">Group / Trade</span>
+              <span class="kv-colon">:</span>
+              <span class="kv-val">General Electronics</span>
+            </div>
+            <div class="kv-row">
+              <span class="kv-key">Result</span>
+              <span class="kv-colon">:</span>
+              <span class="kv-val">GPA 4.77 (out of 5.00) First Division</span>
+            </div>
+            <div class="kv-row">
+              <span class="kv-key">Passing Year</span>
+              <span class="kv-colon">:</span>
+              <span class="kv-val">2012 (Session: 2010–2012)</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 6. LANGUAGE SKILLS -->
+    <section class="section-block">
+      <h2 class="section-title-center">Language Skills</h2>
+      <div class="section-content">
+        <ul class="cv-bullets">
+          <li><strong>English:</strong> Can read, write, speak and understand (Professional Working Proficiency / CEFR B2).</li>
+          <li><strong>Bengali:</strong> Can read, write, speak and understand (Native Language / CEFR C2).</li>
+          <li><strong>Hindi:</strong> Can understand and speak (Conversational / CEFR B1).</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 7. PERSONAL DETAILS -->
+    <section class="section-block">
+      <h2 class="section-title-center">Personal Details</h2>
+      <div class="section-content">
+        <div class="key-value-grid">
+          <div class="kv-row">
+            <span class="kv-key">Name</span>
+            <span class="kv-colon">:</span>
+            <span class="kv-val"><strong>Juel Rana</strong></span>
+          </div>
+          <div class="kv-row">
+            <span class="kv-key">Father's Name</span>
+            <span class="kv-colon">:</span>
+            <span class="kv-val">Afzal Hossain (Afjal Hosen)</span>
+          </div>
+          <div class="kv-row">
+            <span class="kv-key">Mother's Name</span>
+            <span class="kv-colon">:</span>
+            <span class="kv-val">Asma Begum</span>
+          </div>
+          <div class="kv-row">
+            <span class="kv-key">Present Address</span>
+            <span class="kv-colon">:</span>
+            <span class="kv-val">Village: Kastoshagra, Post office: Amdala-1850, Upazila: Shibalaya, District: Manikgonj.</span>
+          </div>
+          <div class="kv-row">
+            <span class="kv-key">Permanent Address</span>
+            <span class="kv-colon">:</span>
+            <span class="kv-val">Village: Kastoshagra, Post office: Amdala-1850, Upazila: Shibalaya, District: Manikgonj.</span>
+          </div>
+          <div class="kv-row">
+            <span class="kv-key">Passport Number</span>
+            <span class="kv-colon">:</span>
+            <span class="kv-val"><strong>A14239145</strong> (Date of Issue: 25 Feb 2024 | Date of Expiry: 24 Feb 2034)</span>
+          </div>
+          <div class="kv-row">
+            <span class="kv-key">National ID (NID) No</span>
+            <span class="kv-colon">:</span>
+            <span class="kv-val">8240329915</span>
+          </div>
+          <div class="kv-row">
+            <span class="kv-key">Date of Birth</span>
+            <span class="kv-colon">:</span>
+            <span class="kv-val">10-05-1995 (10 May 1995)</span>
+          </div>
+          <div class="kv-row">
+            <span class="kv-key">Sex / Gender</span>
+            <span class="kv-colon">:</span>
+            <span class="kv-val">Male</span>
+          </div>
+          <div class="kv-row">
+            <span class="kv-key">Marital Status</span>
+            <span class="kv-colon">:</span>
+            <span class="kv-val">Married</span>
+          </div>
+          <div class="kv-row">
+            <span class="kv-key">Nationality</span>
+            <span class="kv-colon">:</span>
+            <span class="kv-val">Bangladeshi (by birth)</span>
+          </div>
+          <div class="kv-row">
+            <span class="kv-key">Religion</span>
+            <span class="kv-colon">:</span>
+            <span class="kv-val">Islam</span>
+          </div>
+          <div class="kv-row">
+            <span class="kv-key">Driving Licence</span>
+            <span class="kv-colon">:</span>
+            <span class="kv-val">Category B (Light Vehicle) & Category A (Motorcycle) — Ready for Cyprus Conversion</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. REFERENCES -->
+    <section class="section-block">
+      <h2 class="section-title-center">References</h2>
+      <div class="section-content">
+        <div class="references-grid">
+          <div class="ref-card">
+            <div class="ref-name">Engr. Dewan Md. Gias Mahmud</div>
+            <div>Sub-Divisional Engineer & In-charge</div>
+            <div>Manikganj Grid Sub-Station</div>
+            <div>Power Grid Company Of Bangladesh (PGCB)</div>
+            <div>Cell: 01728786917</div>
+            <div>Address: 132/33 kV Manikganj Grid Sub-Station</div>
+          </div>
+          <div class="ref-card">
+            <div class="ref-name">Md. Abbas Uddin</div>
+            <div>Ass. Engineer</div>
+            <div>Manikganj Grid Sub-Station</div>
+            <div>Power Grid Company Of Bangladesh (PGCB)</div>
+            <div>Cell: 01718828192</div>
+            <div>Address: 132/33 kV Manikganj Grid Sub-Station</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 9. DECLARATION (No signature section as requested) -->
+    <section class="section-block">
+      <h2 class="section-title-center">Declaration</h2>
+      <div class="section-content">
+        <div class="declaration-text">
+          I hereby declare that the information supplied by me on this curriculum vitae is complete, true, and correct in every particular. I acknowledge that the authority may terminate the employment if I have misrepresented my past or present circumstances, and all information can be supported by authentic official documentation upon request.
+        </div>
+        <div class="sign-off-block">
+          <div class="sign-off-name">JUEL RANA</div>
+          <div class="sign-off-date">Date: 09 October 2026</div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    // Print Button
+    document.getElementById('btn-print').addEventListener('click', function() {
+      window.print();
+    });
+
+    // Toggle Edit Mode
+    const btnEdit = document.getElementById('btn-toggle-edit');
+    let isEditing = false;
+    btnEdit.addEventListener('click', function() {
+      isEditing = !isEditing;
+      const doc = document.getElementById('cv-content');
+      doc.contentEditable = isEditing ? 'true' : 'false';
+      if (isEditing) {
+        btnEdit.innerHTML = '💾 Finish Editing';
+      } else {
+        btnEdit.innerHTML = '✏️ Edit Text';
+      }
+    });
+  </script>
+</body>
+</html>

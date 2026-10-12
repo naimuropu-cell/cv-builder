@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NovaCV Studio - Interactive ATS & Multi-Format CV Builder</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="builder.css">
+</head>
+<body>
+
+  <!-- TOP APPLICATION NAVBAR -->
+  <header class="app-navbar">
+    <div class="brand">
+      <div class="brand-logo">N</div>
+      <div class="brand-text">
+        <h1>NovaCV Studio</h1>
+        <span>Interactive ATS & Multi-Format Resume Builder</span>
+      </div>
+    </div>
+
+    <div class="nav-actions">
+      <!-- Preset Profile Selector -->
+      <div class="preset-select-wrap">
+        <span>👤 Profile Preset:</span>
+        <select id="preset-selector" class="preset-select">
+          <option value="naimur" selected>Md. Naimur Rahman Apu (SQA Engineer)</option>
+          <option value="juel">Juel Rana (HVAC & Electrical)</option>
+          <option value="blank">Empty Template (Start Blank)</option>
+        </select>
+      </div>
+
+      <!-- JSON Import/Export Actions -->
+      <input type="file" id="import-json-input" accept=".json" style="display:none;">
+      <button class="btn btn-dark" id="btn-import-json" title="Load CV from JSON file">
+        📥 Import JSON
+      </button>
+      <button class="btn btn-dark" id="btn-export-json" title="Download CV data as JSON backup">
+        💾 Export JSON
+      </button>
+
+      <!-- Print / PDF Action -->
+      <button class="btn btn-accent" id="btn-export-pdf" title="Export pixel-perfect PDF via browser print">
+        📄 Export PDF
+      </button>
+    </div>
+  </header>
+
+  <!-- SPLIT STUDIO WORKSPACE -->
+  <div class="studio-workspace">
+    
+    <!-- LEFT EDITOR PANEL -->
+    <aside class="studio-editor">
+      <!-- Tab Navigation Header -->
+      <nav class="editor-tabs">
+        <button class="tab-btn active" data-tab="tab-design">🎨 Template</button>
+        <button class="tab-btn" data-tab="tab-profile">👤 Profile</button>
+        <button class="tab-btn" data-tab="tab-summary">📝 Summary</button>
+        <button class="tab-btn" data-tab="tab-skills">⚡ Skills</button>
+        <button class="tab-btn" data-tab="tab-experience">💼 Experience</button>
+        <button class="tab-btn" data-tab="tab-projects">🚀 Projects</button>
+        <button class="tab-btn" data-tab="tab-education">🎓 Education</button>
+        <button class="tab-btn" data-tab="tab-ats">📊 ATS Meter</button>
+      </nav>
+
+      <!-- Tab Content Body -->
+      <div class="tab-content-area">
+
+        <!-- TAB 1: TEMPLATE & DESIGN -->
+        <div class="tab-pane active" id="tab-design">
+          <div class="form-section-card">
+            <div class="card-title">Choose CV Architecture</div>
+            <div class="template-grid">
+              <div class="template-card active" data-template="ats">
+                <div class="template-icon">🎯</div>
+                <div class="template-name">ATS Tech Minimalist</div>
+                <div class="template-desc">Single-column, keyword-rich, 100% ATS-compliant for tech & SQA.</div>
+              </div>
+              <div class="template-card" data-template="timeline">
+                <div class="template-icon">⏳</div>
+                <div class="template-name">Modern Timeline</div>
+                <div class="template-desc">Left timeline rail with circular candidate photo & two-tone header.</div>
+              </div>
+              <div class="template-card" data-template="executive">
+                <div class="template-icon">👔</div>
+                <div class="template-name">Classic Executive</div>
+                <div class="template-desc">Formal European layout with rectangular photo & underlined headings.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-section-card">
+            <div class="card-title">Color Palette</div>
+            <div class="color-picker-row">
+              <div class="color-swatch active" data-color="#1e3a8a" style="background:#1e3a8a;" title="Tech Navy"></div>
+              <div class="color-swatch" data-color="#ED7D31" style="background:#ED7D31;" title="Industrial Amber"></div>
+              <div class="color-swatch" data-color="#0d9488" style="background:#0d9488;" title="Teal Green"></div>
+              <div class="color-swatch" data-color="#4f46e5" style="background:#4f46e5;" title="Electric Indigo"></div>
+              <div class="color-swatch" data-color="#059669" style="background:#059669;" title="Emerald Green"></div>
+              <div class="color-swatch" data-color="#0f172a" style="background:#0f172a;" title="Slate Black"></div>
+              <div class="color-swatch" data-color="#b91c1c" style="background:#b91c1c;" title="Deep Ruby"></div>
+            </div>
+          </div>
+
+          <div class="form-section-card">
+            <div class="card-title">Typography & Font</div>
+            <div class="form-group">
+              <label class="form-label">Font Family</label>
+              <select id="font-select" class="form-select">
+                <option value="Inter" selected>Inter (Clean Tech & Modern)</option>
+                <option value="Outfit">Outfit (Contemporary & Sleek)</option>
+                <option value="Roboto">Roboto (Neutral & Legible)</option>
+                <option value="Times New Roman">Times New Roman (Formal Classic)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-section-card">
+            <div class="card-title">Candidate Photograph</div>
+            <p style="font-size: 11.5px; color: var(--app-text-muted); margin-bottom: 10px;">
+              Used in Modern Timeline and Classic Executive templates.
+            </p>
+            <input type="file" id="photo-file-input" accept="image/*" style="display:none;">
+            <button class="btn btn-dark" id="btn-upload-photo" style="width:100%;">
+              📷 Upload Custom Photo
+            </button>
+          </div>
+        </div>
+
+        <!-- TAB 2: PROFILE & CONTACT -->
+        <div class="tab-pane" id="tab-profile">
+          <div class="form-section-card">
+            <div class="card-title">Personal Information</div>
+            <div class="form-group">
+              <label class="form-label">Full Name</label>
+              <input type="text" id="input-name" class="form-input" placeholder="e.g. Md. Naimur Rahman Apu">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Target Title / Designation</label>
+              <input type="text" id="input-title" class="form-input" placeholder="e.g. Software Quality Assurance (SQA) Engineer">
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Location (City, Country)</label>
+                <input type="text" id="input-location" class="form-input" placeholder="Dhaka, Bangladesh">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Phone Number</label>
+                <input type="text" id="input-phone" class="form-input" placeholder="+880 1955345331">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Email Address</label>
+              <input type="email" id="input-email" class="form-input" placeholder="name@example.com">
+            </div>
+          </div>
+
+          <div class="form-section-card">
+            <div class="card-title">Web & Social Proof Links</div>
+            <div class="form-group">
+              <label class="form-label">Portfolio URL</label>
+              <input type="url" id="input-portfolio" class="form-input" placeholder="https://yourname.github.io/">
+            </div>
+            <div class="form-group">
+              <label class="form-label">GitHub URL</label>
+              <input type="url" id="input-github" class="form-input" placeholder="https://github.com/username">
+            </div>
+            <div class="form-group">
+              <label class="form-label">LinkedIn Profile</label>
+              <input type="url" id="input-linkedin" class="form-input" placeholder="https://www.linkedin.com/in/username">
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 3: PROFESSIONAL SUMMARY -->
+        <div class="tab-pane" id="tab-summary">
+          <div class="form-section-card">
+            <div class="card-title">Professional Summary / Career Aspiration</div>
+            <div class="form-group">
+              <label class="form-label">Summary Text (Highlight core technical niche, test cases, and domain impact)</label>
+              <textarea id="input-summary" class="form-textarea" style="min-height: 160px;" placeholder="Write a high-impact professional overview..."></textarea>
+            </div>
+          </div>
+
+          <div class="form-section-card">
+            <div class="card-title">Languages</div>
+            <div class="form-group">
+              <label class="form-label">Language Proficiencies</label>
+              <input type="text" id="input-languages" class="form-input" placeholder="Bangla: Native | English: Professional Working Proficiency">
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 4: SKILLS REPEATER -->
+        <div class="tab-pane" id="tab-skills">
+          <div class="form-section-card">
+            <div class="card-title">
+              <span>Technical & Domain Skills</span>
+              <button class="btn btn-primary" id="btn-add-skill" style="font-size:11px; padding:4px 8px;">＋ Add Category</button>
+            </div>
+            <div id="skills-repeater-list">
+              <!-- Dynamically populated via JS -->
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 5: EXPERIENCE REPEATER -->
+        <div class="tab-pane" id="tab-experience">
+          <div class="form-section-card">
+            <div class="card-title">
+              <span>Work Experience</span>
+              <button class="btn btn-primary" id="btn-add-exp" style="font-size:11px; padding:4px 8px;">＋ Add Position</button>
+            </div>
+            <div id="experience-repeater-list">
+              <!-- Dynamically populated via JS -->
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 6: PROJECTS REPEATER -->
+        <div class="tab-pane" id="tab-projects">
+          <div class="form-section-card">
+            <div class="card-title">
+              <span>Featured QA & Engineering Projects</span>
+              <button class="btn btn-primary" id="btn-add-proj" style="font-size:11px; padding:4px 8px;">＋ Add Project</button>
+            </div>
+            <div id="projects-repeater-list">
+              <!-- Dynamically populated via JS -->
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 7: EDUCATION REPEATER -->
+        <div class="tab-pane" id="tab-education">
+          <div class="form-section-card">
+            <div class="card-title">
+              <span>Scholastic & Education Records</span>
+              <button class="btn btn-primary" id="btn-add-edu" style="font-size:11px; padding:4px 8px;">＋ Add Education</button>
+            </div>
+            <div id="education-repeater-list">
+              <!-- Dynamically populated via JS -->
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 8: ATS SCORING & AUDIT -->
+        <div class="tab-pane" id="tab-ats">
+          <div class="ats-score-box">
+            <div class="ats-score-label">Resume Optimization Score</div>
+            <div class="ats-score-num" id="ats-score-num">95%</div>
+            <div style="font-size:11px; color:#94a3b8; margin-top:4px;">Evaluated based on ATS parsing rules, keyword density, and metrics</div>
+          </div>
+
+          <div class="form-section-card">
+            <div class="card-title">ATS Readiness Checklist</div>
+            <ul class="ats-checklist" id="ats-checklist">
+              <!-- Dynamically calculated via JS -->
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </aside>
+
+    <!-- RIGHT LIVE PREVIEW CANVAS -->
+    <main class="studio-preview">
+      
+      <!-- Floating Canvas Zoom Bar -->
+      <div class="preview-toolbar">
+        <button class="btn btn-dark" id="btn-zoom-out" style="padding:4px 9px;">−</button>
+        <span class="zoom-indicator" id="zoom-val">100%</span>
+        <button class="btn btn-dark" id="btn-zoom-in" style="padding:4px 9px;">＋</button>
+        <button class="btn btn-dark" id="btn-zoom-reset" style="padding:4px 9px; font-size:11px;">Reset</button>
+      </div>
+
+      <!-- Real-time A4 Paper Canvas -->
+      <div class="cv-paper tmpl-ats" id="cv-paper">
+        <!-- Rendered dynamically by builder.js -->
+      </div>
+
+    </main>
+
+  </div>
+
+  <!-- Studio Logic -->
+  <script src="builder.js"></script>
+</body>
+</html>
